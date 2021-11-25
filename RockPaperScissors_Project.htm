@@ -1,10 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>RockPaperScissors</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/15a9e07c9b.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
+    <header>
+        <h1>Rock Paper Scissors</h1>
+    </header>
+
+    <main>
+        <div class="display">
+            <p>Make your choice!</p>
+            <div>
+                <div class="float-half">
+                    <p>Player</p>
+                    <p id="player-score">0</p>
+                    <div id="player-choice"></div>
+                </div>
+                <div class="float-half">
+                    <p>Computer</p>
+                    <p id="computer-score">0</p>
+                    <div id="computer-choice"></div>
+                </div>
+            </div>
+        </div>
+        <div class="selections">
+            <div class="selection">
+                <button id="rock" class="far fa-hand-rock fa-lg"></button>
+                <span class="btn-text">Rock</span>
+            </div>
+            <div class="selection">
+                <button id="paper" class="far fa-hand-paper fa-lg"></button>
+                <span class="btn-text">Paper</span>
+            </div>
+            <div class="selection">
+                <button id="scissors" class="far fa-hand-scissors fa-lg"></button>
+                <span class="btn-text">Scissors</span>
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
     <script src="RockPaperScissors_Project.js"></script>
 </body>
+
 </html>

@@ -1,5 +1,3 @@
-//Computer chooses rock, paper, or scissors.
-//Generates a random number 0-2 which represents each choice.
 function computerPlay() {
     let randomNum = Math.floor(Math.random() * 3);
     let computerResult;
@@ -14,73 +12,146 @@ function computerPlay() {
     return computerResult;
 }
 
-//Play one round of rock, paper, scissors. Returns round outcome.
 function playRound(playerSelection, computerSelection) {
     let win = false;
     let lose = false;
+    roundCounter++;
+    console.log(roundCounter);
 
+    playerSelection = this.getAttribute("id");
     computerSelection = computerPlay();
-    //Evaluate through win and lose conditions
-    if (playerSelection == "rock" && computerSelection == "scissors") {
+    displayBtn(playerSelection, computerSelection);
+
+    if ((playerSelection == "rock" && computerSelection == "scissors")
+    || (playerSelection == "paper" && computerSelection == "rock")
+    || (playerSelection == "scissors" && computerSelection == "paper"))  {
         win = true;
-    } else if (playerSelection == "paper" && computerSelection == "rock") {
-        win = true;
-    } else if (playerSelection == "scissors" && computerSelection == "paper") {
-        win = true;
-    } else if (computerSelection == "rock" && playerSelection == "scissors") {
-        lose = true;
-    } else if (computerSelection == "paper" && playerSelection == "rock") {
-        lose = true;
-    } else if (computerSelection == "scissors" && playerSelection == "paper") {
+    } else if ((computerSelection == "rock" && playerSelection == "scissors")
+    || (computerSelection == "paper" && playerSelection == "rock")
+    || (computerSelection == "scissors" && playerSelection == "paper")) {
         lose = true;
     }
-    //Print outcome. Includes tie condition.
+
     if (playerSelection == computerSelection) {
-        outcome = "tie";
-        console.log(`${playerSelection} and ${computerSelection}! Tie!`);
+        displayText.textContent = `${cap1st(playerSelection)} and ${computerSelection}! Tie!`;
     } else if (win) {
-        outcome = "win";
-        console.log(`${playerSelection} beats ${computerSelection}! Win!`);
+        winCounter++;
+        displayText.textContent = `${cap1st(playerSelection)} beats ${computerSelection}! Win!`;
     } else if (lose) {
-        outcome = "lose";
-        console.log(`${computerSelection} beats ${playerSelection}! Lose!`);
+        loseCounter++;
+        displayText.textContent = `${cap1st(computerSelection)} beats ${playerSelection}! Lose!`;
     }
-    return outcome;
+
+    document.querySelector("#player-score").textContent = winCounter;
+    document.querySelector("#computer-score").textContent = loseCounter;
+
+    if (roundCounter === 5) {
+        endGame();
+    }
 }
 
-//Plays a game of 5 rounds of rock, paper, scissors. Console logs the game result.
-function game() {
-    let winCounter = 0;
-    let loseCounter = 0;
-
-    for (let i = 0; i < 5; i++) {
-        playerSelection = window.prompt("Please choose rock, paper, or scissors.");
-        playerSelection = playerSelection.toLowerCase();
-        while (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") {
-            playerSelection = window.prompt("Please enter a valid value.");
-            playerSelection = playerSelection.toLowerCase();
-        }
-
-        playRound(playerSelection, computerSelection);
-        if (outcome == "win") {
-            winCounter++;
-        } else if (outcome == "lose") {
-            loseCounter++;
-        }
-    }
+function endGame() {
+    const ftr = document.querySelector("footer");
+    const btn = document.createElement("button");
+    btn.textContent = "New game";
 
     if (winCounter == loseCounter) {
-        console.log("It's a tie!");
+        displayText.textContent = "It's a tie!";
     } else if (winCounter > loseCounter) {
-        console.log("Player wins!");
+        displayText.textContent = "Player wins!";
     } else if (winCounter < loseCounter) {
-        console.log("Computer wins!");
+        displayText.textContent = "Computer wins!";
+    }
+
+    const btns = document.querySelectorAll("button");
+    btns.forEach(btns => btns.disabled=true);
+
+    ftr.append(btn);
+
+    btn.addEventListener('click', () => {
+        roundCounter = 0;
+        winCounter = 0;
+        loseCounter = 0;
+        document.querySelector("#player-score").textContent = winCounter;
+        document.querySelector("#computer-score").textContent = loseCounter;
+        const btns = document.querySelectorAll("button");
+        btns.forEach(btns => btns.disabled=false);
+        clearDisplay();
+        displayText.textContent = "Make your choice!";
+        btn.remove();
+    })
+}
+
+function displayBtn(playerSelection, computerSelection) {
+    const playerChoice = document.querySelector("#player-choice");
+    const computerChoice = document.querySelector("#computer-choice");
+    const btn = document.createElement("button");
+    const btn2 = document.createElement("button");
+    console.log("computerSelection: " + computerSelection);
+
+    clearDisplay();
+
+    switch (playerSelection) {
+        case "rock":
+            console.log("Player selection is rock.");
+            btn.setAttribute("class", "far fa-hand-rock fa-lg");
+            playerChoice.append(btn);
+            break;
+        case "paper":
+            console.log("Player selection is paper.");
+            btn.setAttribute("class", "far fa-hand-paper fa-lg");
+            playerChoice.append(btn);
+            break;
+        case "scissors":
+            console.log("Player selection is scissors.");
+            btn.setAttribute("class", "far fa-hand-scissors fa-lg");
+            playerChoice.append(btn);
+            break;
+    }
+
+    switch (computerSelection) {
+        case "rock":
+            console.log("Computer selection is rock.");
+            btn2.setAttribute("class", "far fa-hand-rock fa-lg");
+            computerChoice.append(btn2);
+            break;
+        case "paper":
+            console.log("Computer selection is paper.");
+            btn2.setAttribute("class", "far fa-hand-paper fa-lg");
+            computerChoice.append(btn2);
+            break;
+        case "scissors":
+            console.log("Computer selection is scissors.");
+            btn2.setAttribute("class", "far fa-hand-scissors fa-lg");
+            computerChoice.append(btn2);
+            break;
     }
 }
 
+function clearDisplay() {
+    const playerChoice = document.querySelector("#player-choice");
+    const computerChoice = document.querySelector("#computer-choice");
 
-let outcome;
+    while (playerChoice.firstChild) {
+        playerChoice.removeChild(playerChoice.firstChild);
+    }
+    
+    while (computerChoice.firstChild) {
+        computerChoice.removeChild(computerChoice.firstChild);
+    }
+}
+
+function cap1st(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+let roundCounter = 0;
+let winCounter = 0;
+let loseCounter = 0;
 let playerSelection;
 let computerSelection = computerPlay();
+const body = document.body;
+const displayText = document.querySelector("p");
 
-game();
+const btn = document.querySelectorAll("button");
+btn.forEach(btn => btn.addEventListener('click', playRound));
