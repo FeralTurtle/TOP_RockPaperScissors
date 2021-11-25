@@ -1,0 +1,102 @@
+header {
+    height: 12%;
+}
+
+body {
+    background-color: #808080;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    height: 4%;
+    margin: 0;
+    padding-top: 1.2rem;
+}
+
+button {
+    padding: 2rem;
+}
+
+span {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    height: 8%;
+    padding: 1rem;
+}
+
+div.display button {
+    font-size: 10.5rem;
+}
+
+div.display > div {
+    height: 90%;
+}
+
+div.float-half > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.float-half {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.test {
+    display: flex;
+    flex-direction: column;
+}
+
+.display {
+    height: 60%;
+    width: 75%;
+    text-align: center;
+}
+
+.selections {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 35%;
+    width: 50%;
+    padding: 8px;
+    font-size: 4rem;
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80%;
+    width: 30%;
+    padding: 12px;
+}
+
+.btn-text {
+    text-align: center;
+}
